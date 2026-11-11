@@ -1,0 +1,31 @@
+
+name: React CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Project
+        uses: actions/checkout@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Automated Tests
+        run: npm test
+
+      - name: Build React Application
+        run: npm run build
